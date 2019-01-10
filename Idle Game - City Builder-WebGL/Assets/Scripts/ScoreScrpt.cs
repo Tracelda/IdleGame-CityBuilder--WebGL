@@ -26,6 +26,9 @@ public class ScoreScrpt : MonoBehaviour {
     public float MarketGoldIncome;
     public float MarketPopulationIncome;
 
+    public float PortGoldIncome;
+    public float PortPopulationIncome;
+
     public float GoldIncome;
     public float PopulationIncome;
 
@@ -38,6 +41,14 @@ public class ScoreScrpt : MonoBehaviour {
 
     public float BasePopulationLimit;
     public float HousePopulationModifier;
+
+    public float LeftOverHouseGold;
+    public float LeftOverMarketGold;
+    public float LeftOverPortGold;
+
+    public float LeftOverHousePopulation;
+    public float LeftOverMarketPopulation;
+    public float LeftOverPortPopulation;
 
     public bool NotEnoughPopulation;
 
@@ -87,41 +98,60 @@ public class ScoreScrpt : MonoBehaviour {
         {
             GoldPerSecond += (InfoStatic.population / 10);
             GoldIncome += Mathf.Floor(GoldPerSecond);
-            InfoStatic.gold += GoldIncome;
+            //InfoStatic.gold += GoldIncome;
             GoldPerSecond = 0;
             // Debug.Log("Gold Income from base pop: " + GoldIncome);
-            GoldIncome = 0;
+            //GoldIncome = 0;
         }
 
 
         if (InfoStatic.housebought == true)
         {
             //Debug.Log("Points From House");
-            GoldPerSecond += (InfoStatic.housegoldincome * InfoStatic.houses);
+            GoldPerSecond += (LeftOverHouseGold + (InfoStatic.housegoldincome * InfoStatic.houses));
             if(GoldPerSecond >=1)
             {
-                GoldIncome = 0;
+                //GoldIncome = 0;
                 //Debug.Log("Gold Per Second Higher Than 1");
-                GoldIncome = Mathf.Floor(GoldPerSecond);
-                GoldPerSecond -= Mathf.Floor(GoldPerSecond);
+                GoldIncome += Mathf.Floor(GoldPerSecond);
+                LeftOverHouseGold = (GoldPerSecond - Mathf.Floor(GoldPerSecond));
                 // Debug.Log("Gold Income: " + GoldIncome);
-                InfoStatic.gold += GoldIncome;
+                //InfoStatic.gold += GoldIncome;
+                GoldPerSecond = 0;
             }
         }
         if (InfoStatic.marketbought == true)
         {
             //Debug.Log("Points From Market");
-            GoldPerSecond += (InfoStatic.marketgoldincome * InfoStatic.markets);
+            GoldPerSecond += (LeftOverMarketGold + (InfoStatic.marketgoldincome * InfoStatic.markets));
             if (GoldPerSecond >= 1)
             {
-                GoldIncome = 0;
+                //GoldIncome = 0;
                 //Debug.Log("Gold Per Second Higher Than 1");
-                GoldIncome = Mathf.Floor(GoldPerSecond);
-                GoldPerSecond -= Mathf.Floor(GoldPerSecond);
+                GoldIncome += Mathf.Floor(GoldPerSecond);
+                LeftOverMarketGold = (GoldPerSecond - Mathf.Floor(GoldPerSecond));
                 // Debug.Log("Gold Income: " + GoldIncome);
-                InfoStatic.gold += GoldIncome;
+                //InfoStatic.gold += GoldIncome;
+                GoldPerSecond = 0;
             }
         }
+        if (InfoStatic.portbought == true)
+        {
+            //Debug.Log("Points From Port");
+            GoldPerSecond += (LeftOverPortGold + (InfoStatic.portgoldincome * InfoStatic.ports));
+            if (GoldPerSecond >= 1)
+            {
+                //GoldIncome = 0;
+                //Debug.Log("Gold Per Second Higher Than 1");
+                GoldIncome += Mathf.Floor(GoldPerSecond);
+                LeftOverPortGold = (GoldPerSecond - Mathf.Floor(GoldPerSecond));
+                // Debug.Log("Gold Income: " + GoldIncome);
+                //InfoStatic.gold += GoldIncome;
+                GoldPerSecond = 0;
+            }
+        }
+        InfoStatic.gold += GoldIncome;
+        GoldIncome = 0;
     }
 
     public void AddPopulation() // adds population incomes together and adds total to population score
@@ -129,32 +159,54 @@ public class ScoreScrpt : MonoBehaviour {
         // Debug.Log("Not enough population");
         if (InfoStatic.housebought == true)
         {
-            PopulationPerSecond += (InfoStatic.housepopincome * InfoStatic.houses);
+            PopulationPerSecond += (LeftOverHousePopulation + (InfoStatic.housepopincome * InfoStatic.houses));
             //Debug.Log("Pop per second: " + PopulationPerSecond);
             if (PopulationPerSecond >= 1)
             {
                 // PopulationIncome = 0;
                 //Debug.Log("Pop Per Second Higher Than 1");
-                PopulationIncome = Mathf.Floor(PopulationPerSecond);
-                PopulationPerSecond -= Mathf.Floor(PopulationPerSecond);
+                PopulationIncome += Mathf.Floor(PopulationPerSecond);
+                LeftOverHousePopulation = PopulationPerSecond - Mathf.Floor(PopulationPerSecond);
                 //Debug.Log("Population Income: " + PopulationIncome);
-                InfoStatic.population += PopulationIncome;
+                //InfoStatic.population += PopulationIncome;
+                PopulationPerSecond = 0;
             }
         }
         if (InfoStatic.marketbought == true)
         {
-            PopulationPerSecond += (InfoStatic.marketpopincome * InfoStatic.markets);
+            PopulationPerSecond += (LeftOverMarketPopulation + (InfoStatic.marketpopincome * InfoStatic.markets));
             //Debug.Log("Pop per second: " + PopulationPerSecond);
             if (PopulationPerSecond >= 1)
             {
                 // PopulationIncome = 0;
                 //Debug.Log("Pop Per Second Higher Than 1");
-                PopulationIncome = Mathf.Floor(PopulationPerSecond);
-                PopulationPerSecond -= Mathf.Floor(PopulationPerSecond);
+                PopulationIncome += Mathf.Floor(PopulationPerSecond);
+                LeftOverMarketPopulation = (PopulationPerSecond - Mathf.Floor(PopulationPerSecond));
                 //Debug.Log("Population Income: " + PopulationIncome);
-                InfoStatic.population += PopulationIncome;
+                //InfoStatic.population += PopulationIncome;
+                PopulationPerSecond = 0;
             }
-        } 
+        }
+        if (InfoStatic.portbought == true)
+        {
+            PopulationPerSecond += (LeftOverPortPopulation + (InfoStatic.portpopincome * InfoStatic.ports));
+            //Debug.Log("Pop per second: " + PopulationPerSecond);
+            if (PopulationPerSecond >= 1)
+            {
+                // PopulationIncome = 0;
+                //Debug.Log("Pop Per Second Higher Than 1");
+                PopulationIncome += Mathf.Floor(PopulationPerSecond);
+                LeftOverPortPopulation = (PopulationPerSecond - Mathf.Floor(PopulationPerSecond));
+                //Debug.Log("Population Income: " + PopulationIncome);
+                //InfoStatic.population += PopulationIncome;
+                PopulationPerSecond = 0;
+            }
+        }
+
+        InfoStatic.population += PopulationIncome;
+        PopulationIncome = 0;
+
+
         if (!CheckPopulationLimit())
         {
             InfoStatic.population = InfoStatic.populationlimit;
@@ -203,6 +255,8 @@ public class ScoreScrpt : MonoBehaviour {
         InfoStatic.housepopincome = HousePopulationIncome;
         InfoStatic.marketgoldincome = MarketGoldIncome;
         InfoStatic.marketpopincome = MarketPopulationIncome;
+        InfoStatic.portgoldincome = PortGoldIncome;
+        InfoStatic.portpopincome = PortPopulationIncome;
     }
 
     public void ChangePopulationLimit()

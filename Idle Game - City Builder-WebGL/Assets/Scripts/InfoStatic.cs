@@ -22,6 +22,12 @@ public class InfoStatic
     public static float marketgoldincome;
     public static float marketpopincome;
 
+    public static bool portbought;
+    public static int ports;
+    public static int portprice;
+    public static float portgoldincome;
+    public static float portpopincome;
+
     public static bool minebought;
     public static int mines;
     public static int mineprice;
@@ -194,5 +200,66 @@ public class InfoStatic
         }
     }
 
+    // Port ----------------------------------------------------------------------
 
+    public static int PortPrice
+    {
+        get
+        {
+            return portprice;
+        }
+        set
+        {
+            portprice = value;
+        }
+    }
+
+    public static bool PortsBought
+    {
+        get
+        {
+            return portbought;
+        }
+        set
+        {
+            portbought = value;
+        }
+    }
+
+    public static int Ports
+    {
+        get
+        {
+            return ports;
+        }
+        set
+        {
+            ports = value;
+        }
+    }
+
+    public static float PortGoldIncome
+    {
+        get
+        {
+            return portgoldincome;
+        }
+        set
+        {
+            portgoldincome = value;
+        }
+
+    }
+
+    public static float PortPopIncome
+    {
+        get
+        {
+            return portpopincome;
+        }
+        set
+        {
+            portpopincome = value;
+        }
+    }
 }

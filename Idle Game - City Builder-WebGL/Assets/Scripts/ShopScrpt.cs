@@ -9,10 +9,6 @@ public class ShopScrpt : MonoBehaviour {
     public InfoStatic InfoStatic;
     
     // Points
-    public GameObject GoldTxt;
-    public Text GoldtxtVal;
-    public GameObject PopulationTxt;
-    public Text PopulationtxtVal;
     public string GoldString;
     public string PopulationString;
 
@@ -33,6 +29,15 @@ public class ShopScrpt : MonoBehaviour {
     public Text MarketPriceValue;
     public GameObject MarketAmountTxt;
     public Text MarketAmountValue;
+
+    // Port
+    public string PortValueString;
+    public string PortAmountString;
+    public int PortValue;
+    public GameObject PortPriceTxt;
+    public Text PortPriceValue;
+    public GameObject PortAmountTxt;
+    public Text PortAmountValue;
 
     // Themes
     public float ThemePrice;
@@ -69,14 +74,20 @@ public class ShopScrpt : MonoBehaviour {
         MarketAmountString = InfoStatic.markets.ToString(); // Initilises Displayed Value of markets bought
         MarketAmountValue.text = "Built: " + MarketAmountString;
 
-        // Points
-        GoldTxt = GameObject.Find("GoldTxt");
-        GoldtxtVal = GoldTxt.GetComponent<Text>();
-        PopulationTxt = GameObject.Find("PopulationTxt");
-        PopulationtxtVal = PopulationTxt.GetComponent<Text>();
+        //Port
+        PortPriceTxt = GameObject.Find("PortPriceTxt");
+        PortPriceValue = PortPriceTxt.GetComponent<Text>();
+        PortAmountTxt = GameObject.Find("PortAmountTxt");
+        PortAmountValue = PortAmountTxt.GetComponent<Text>();
+
+        PortValueString = PortValue.ToString(); // Initilises displayed value of port price
+        PortPriceValue.text = "Price: " + PortValueString;
+
+        PortAmountString = InfoStatic.ports.ToString(); // Initilises Displayed Value of ports bought
+        PortAmountValue.text = "Built: " + PortAmountString;
 
         // Themes
-        ThemePrice = 100;
+        ThemePrice = 1000;
 
         // Boosters
         SmallIncome = 100;
@@ -87,12 +98,18 @@ public class ShopScrpt : MonoBehaviour {
 	void Update ()
     {
         UpdateText();
-	}
+    }
 
     public void SetPrices()
     {
+        HouseValue += InfoStatic.houses;
         InfoStatic.houseprice = HouseValue;
+
+        MarketValue += InfoStatic.markets;
         InfoStatic.marketprice = MarketValue;
+
+        PortValue += InfoStatic.ports;
+        InfoStatic.portprice = PortValue;
     }
 
     public void UpdateText()
@@ -100,14 +117,25 @@ public class ShopScrpt : MonoBehaviour {
         // Points Text
         GoldString = InfoStatic.gold.ToString();
         PopulationString = InfoStatic.population.ToString();
-        GoldtxtVal.text = GoldString;
-        PopulationtxtVal.text = PopulationString;
         // House Text
         HouseAmountString = InfoStatic.houses.ToString();
         HouseAmountValue.text = "Built: " + HouseAmountString;
+
+        HouseValueString = InfoStatic.houseprice.ToString(); 
+        HousePriceValue.text = "Price: " + HouseValueString;
+
         // Market Text
         MarketAmountString = InfoStatic.markets.ToString();
         MarketAmountValue.text = "Built: " + MarketAmountString;
+
+        MarketValueString = InfoStatic.marketprice.ToString();
+        MarketPriceValue.text = "Price: " + MarketValueString;
+        // Port Text
+        PortAmountString = InfoStatic.ports.ToString();
+        PortAmountValue.text = "Built: " + PortAmountString;
+
+        PortValueString = InfoStatic.portprice.ToString();
+        PortPriceValue.text = "Price: " + PortValueString;
     }
 
     public void BuyHouse()
@@ -127,6 +155,8 @@ public class ShopScrpt : MonoBehaviour {
             Debug.Log("Houses: " + InfoStatic.houses);
             Debug.Log("Gold: " + InfoStatic.gold);
             HouseAmountValue.text = "Built: " + HouseAmountString;
+            HouseValue += InfoStatic.houses;
+            InfoStatic.houseprice = HouseValue;
         }
         else
         {
@@ -152,6 +182,35 @@ public class ShopScrpt : MonoBehaviour {
             Debug.Log("Markets: " + InfoStatic.markets);
             Debug.Log("Gold: " + InfoStatic.gold);
             MarketAmountValue.text = "Built: " + MarketAmountString;
+            MarketValue += InfoStatic.markets;
+            InfoStatic.marketprice = MarketValue;
+        }
+        else
+        {
+            Debug.Log("Not Enough Gold");
+        }
+    }
+
+    public void BuyPort()
+    {
+        Debug.Log("Click");
+        Debug.Log("Port Price: " + InfoStatic.portprice);
+        if (InfoStatic.gold >= InfoStatic.portprice) // Detect if player has enough gold
+        {
+            Debug.Log("Able To Buy");
+            if (InfoStatic.portbought == false) // Checks if player has bought upgrade before
+            {
+                Debug.Log("First Market");
+                InfoStatic.portbought = true;
+            }
+
+            InfoStatic.gold -= InfoStatic.portprice; // Updates values to represent a port being bought
+            InfoStatic.ports++;
+            Debug.Log("Ports: " + InfoStatic.ports);
+            Debug.Log("Gold: " + InfoStatic.gold);
+            PortAmountValue.text = "Built: " + PortAmountString;
+            PortValue += InfoStatic.ports;
+            InfoStatic.portprice = PortValue;
         }
         else
         {
@@ -162,7 +221,7 @@ public class ShopScrpt : MonoBehaviour {
     public void BuyHouseX2()
     {
         Debug.Log("Click");
-        if (InfoStatic.gold >= InfoStatic.houseprice) // Detect if player has enough gold
+        if (InfoStatic.gold >= (InfoStatic.houseprice * 2)) // Detect if player has enough gold
         {
             Debug.Log("Able To Buy");
             if (InfoStatic.housebought == false) // Checks if player has bought upgrade before
@@ -176,6 +235,8 @@ public class ShopScrpt : MonoBehaviour {
             Debug.Log("Houses: " + InfoStatic.houses);
             Debug.Log("Gold: " + InfoStatic.gold);
             HouseAmountValue.text = "Built: " + HouseAmountString;
+            HouseValue += InfoStatic.houses;
+            InfoStatic.houseprice = HouseValue;
         }
         else
         {
@@ -187,7 +248,7 @@ public class ShopScrpt : MonoBehaviour {
     {
         Debug.Log("Click");
         Debug.Log("Market Price: " + InfoStatic.marketprice);
-        if (InfoStatic.gold >= InfoStatic.marketprice) // Detect if player has enough gold
+        if (InfoStatic.gold >= (InfoStatic.marketprice * 2)) // Detect if player has enough gold
         {
             Debug.Log("Able To Buy");
             if (InfoStatic.marketbought == false) // Checks if player has bought upgrade before
@@ -201,6 +262,35 @@ public class ShopScrpt : MonoBehaviour {
             Debug.Log("Markets: " + InfoStatic.markets);
             Debug.Log("Gold: " + InfoStatic.gold);
             MarketAmountValue.text = "Built: " + MarketAmountString;
+            MarketValue += InfoStatic.markets;
+            InfoStatic.marketprice = MarketValue;
+        }
+        else
+        {
+            Debug.Log("Not Enough Gold");
+        }
+    }
+
+    public void BuyPortX2()
+    {
+        Debug.Log("Click");
+        Debug.Log("Port Price: " + InfoStatic.portprice);
+        if (InfoStatic.gold >= (InfoStatic.portprice * 2)) // Detect if player has enough gold
+        {
+            Debug.Log("Able To Buy");
+            if (InfoStatic.portbought == false) // Checks if player has bought upgrade before
+            {
+                Debug.Log("First Port");
+                InfoStatic.portbought = true;
+            }
+
+            InfoStatic.gold -= (InfoStatic.portprice * 2); // Updates values to represent a port being bought
+            InfoStatic.ports += 2;
+            Debug.Log("Ports: " + InfoStatic.ports);
+            Debug.Log("Gold: " + InfoStatic.gold);
+            PortAmountValue.text = "Built: " + PortAmountString;
+            PortValue += InfoStatic.ports;
+            InfoStatic.portprice = PortValue;
         }
         else
         {
@@ -211,7 +301,7 @@ public class ShopScrpt : MonoBehaviour {
     public void BuyHouseX10()
     {
         Debug.Log("Click");
-        if (InfoStatic.gold >= InfoStatic.houseprice) // Detect if player has enough gold
+        if (InfoStatic.gold >= (InfoStatic.houseprice * 10)) // Detect if player has enough gold
         {
             Debug.Log("Able To Buy");
             if (InfoStatic.housebought == false) // Checks if player has bought upgrade before
@@ -225,6 +315,8 @@ public class ShopScrpt : MonoBehaviour {
             Debug.Log("Houses: " + InfoStatic.houses);
             Debug.Log("Gold: " + InfoStatic.gold);
             HouseAmountValue.text = "Built: " + HouseAmountString;
+            HouseValue += InfoStatic.houses;
+            InfoStatic.houseprice = HouseValue;
         }
         else
         {
@@ -236,7 +328,7 @@ public class ShopScrpt : MonoBehaviour {
     {
         Debug.Log("Click");
         Debug.Log("Market Price: " + InfoStatic.marketprice);
-        if (InfoStatic.gold >= InfoStatic.marketprice) // Detect if player has enough gold
+        if (InfoStatic.gold >= (InfoStatic.marketprice * 10)) // Detect if player has enough gold
         {
             Debug.Log("Able To Buy");
             if (InfoStatic.marketbought == false) // Checks if player has bought upgrade before
@@ -250,6 +342,35 @@ public class ShopScrpt : MonoBehaviour {
             Debug.Log("Markets: " + InfoStatic.markets);
             Debug.Log("Gold: " + InfoStatic.gold);
             MarketAmountValue.text = "Built: " + MarketAmountString;
+            MarketValue += InfoStatic.markets;
+            InfoStatic.marketprice = MarketValue;
+        }
+        else
+        {
+            Debug.Log("Not Enough Gold");
+        }
+    }
+
+    public void BuyPortX10()
+    {
+        Debug.Log("Click");
+        Debug.Log("Market Price: " + InfoStatic.portprice);
+        if (InfoStatic.gold >= (InfoStatic.portprice * 10)) // Detect if player has enough gold
+        {
+            Debug.Log("Able To Buy");
+            if (InfoStatic.portbought == false) // Checks if player has bought upgrade before
+            {
+                Debug.Log("First Port");
+                InfoStatic.portbought = true;
+            }
+
+            InfoStatic.gold -= (InfoStatic.portprice * 10); // Updates values to represent a port being bought
+            InfoStatic.ports += 10;
+            Debug.Log("Ports: " + InfoStatic.ports);
+            Debug.Log("Gold: " + InfoStatic.gold);
+            PortAmountValue.text = "Built: " + PortAmountString;
+            PortValue += InfoStatic.ports;
+            InfoStatic.portprice = PortValue;
         }
         else
         {
