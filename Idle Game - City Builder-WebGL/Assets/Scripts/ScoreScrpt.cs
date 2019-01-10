@@ -52,6 +52,8 @@ public class ScoreScrpt : MonoBehaviour {
 
     public bool NotEnoughPopulation;
 
+    public AudioManagerScrpt AudioManagerScrpt;
+
     void Start ()
     {
         GoldAmount = GameObject.Find("GoldAmount");
@@ -78,6 +80,7 @@ public class ScoreScrpt : MonoBehaviour {
             InfoStatic.gold++;
             GoldString = InfoStatic.gold.ToString();
             GoldAmountTxt.text = GoldString;
+            AudioManagerScrpt.PlaySound("hort-click-snap-perc", .2f);
     }
 
     public void UpdatePopulationOnBtn() // Adds one to population score when button is pressed
@@ -88,6 +91,7 @@ public class ScoreScrpt : MonoBehaviour {
             InfoStatic.population++;
             PopulationString = InfoStatic.population.ToString();
             PopulationAmountTxt.text = PopulationString;
+            AudioManagerScrpt.PlaySound("hort-click-snap-perc", .2f);
         }
         // else { Debug.Log("Max population reached"); }
     }

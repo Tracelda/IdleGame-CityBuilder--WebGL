@@ -46,6 +46,8 @@ public class ShopScrpt : MonoBehaviour {
     public float SmallIncome;
     public float BigIncome;
 
+    public AudioManagerScrpt AudioManagerScrpt;
+
     void Start ()
     {
         SetPrices();
@@ -61,6 +63,7 @@ public class ShopScrpt : MonoBehaviour {
 
         HouseAmountString = InfoStatic.houses.ToString(); // Initilises Displayed Value of houses bought
         HouseAmountValue.text = "Built: " + HouseAmountString;
+        InfoStatic.housebought = false;
 
         // Market
         MarketPriceTxt = GameObject.Find("MarketPriceTxt");
@@ -73,6 +76,7 @@ public class ShopScrpt : MonoBehaviour {
 
         MarketAmountString = InfoStatic.markets.ToString(); // Initilises Displayed Value of markets bought
         MarketAmountValue.text = "Built: " + MarketAmountString;
+        InfoStatic.marketbought = false;
 
         //Port
         PortPriceTxt = GameObject.Find("PortPriceTxt");
@@ -85,6 +89,7 @@ public class ShopScrpt : MonoBehaviour {
 
         PortAmountString = InfoStatic.ports.ToString(); // Initilises Displayed Value of ports bought
         PortAmountValue.text = "Built: " + PortAmountString;
+        InfoStatic.portbought = false;
 
         // Themes
         ThemePrice = 1000;
@@ -157,6 +162,7 @@ public class ShopScrpt : MonoBehaviour {
             HouseAmountValue.text = "Built: " + HouseAmountString;
             HouseValue += InfoStatic.houses;
             InfoStatic.houseprice = HouseValue;
+            AudioManagerScrpt.PlaySound("OtherHurt", .2f);
         }
         else
         {
@@ -184,6 +190,7 @@ public class ShopScrpt : MonoBehaviour {
             MarketAmountValue.text = "Built: " + MarketAmountString;
             MarketValue += InfoStatic.markets;
             InfoStatic.marketprice = MarketValue;
+            AudioManagerScrpt.PlaySound("OtherHurt", .2f);
         }
         else
         {
@@ -211,6 +218,7 @@ public class ShopScrpt : MonoBehaviour {
             PortAmountValue.text = "Built: " + PortAmountString;
             PortValue += InfoStatic.ports;
             InfoStatic.portprice = PortValue;
+            AudioManagerScrpt.PlaySound("OtherHurt", .2f);
         }
         else
         {
@@ -237,6 +245,7 @@ public class ShopScrpt : MonoBehaviour {
             HouseAmountValue.text = "Built: " + HouseAmountString;
             HouseValue += InfoStatic.houses;
             InfoStatic.houseprice = HouseValue;
+            AudioManagerScrpt.PlaySound("OtherHurt", .2f);
         }
         else
         {
@@ -264,6 +273,7 @@ public class ShopScrpt : MonoBehaviour {
             MarketAmountValue.text = "Built: " + MarketAmountString;
             MarketValue += InfoStatic.markets;
             InfoStatic.marketprice = MarketValue;
+            AudioManagerScrpt.PlaySound("OtherHurt", .2f);
         }
         else
         {
@@ -291,6 +301,7 @@ public class ShopScrpt : MonoBehaviour {
             PortAmountValue.text = "Built: " + PortAmountString;
             PortValue += InfoStatic.ports;
             InfoStatic.portprice = PortValue;
+            AudioManagerScrpt.PlaySound("OtherHurt", .2f);
         }
         else
         {
@@ -317,6 +328,7 @@ public class ShopScrpt : MonoBehaviour {
             HouseAmountValue.text = "Built: " + HouseAmountString;
             HouseValue += InfoStatic.houses;
             InfoStatic.houseprice = HouseValue;
+            AudioManagerScrpt.PlaySound("OtherHurt", .2f);
         }
         else
         {
@@ -344,6 +356,7 @@ public class ShopScrpt : MonoBehaviour {
             MarketAmountValue.text = "Built: " + MarketAmountString;
             MarketValue += InfoStatic.markets;
             InfoStatic.marketprice = MarketValue;
+            AudioManagerScrpt.PlaySound("OtherHurt", .2f);
         }
         else
         {
@@ -371,6 +384,7 @@ public class ShopScrpt : MonoBehaviour {
             PortAmountValue.text = "Built: " + PortAmountString;
             PortValue += InfoStatic.ports;
             InfoStatic.portprice = PortValue;
+            AudioManagerScrpt.PlaySound("OtherHurt", .2f);
         }
         else
         {
@@ -384,17 +398,20 @@ public class ShopScrpt : MonoBehaviour {
         {
             InfoStatic.themebought = true;
             InfoStatic.gold -= ThemePrice;
+            AudioManagerScrpt.PlaySound("electro-win-sound", .2f);
         }
     }
 
     public void BuySmallBoosterOnBtnPress()
     {
         InfoStatic.gold += SmallIncome;
+        AudioManagerScrpt.PlaySound("electro-win-sound", .2f);
     }
 
     public void BuyLargeBoosterOnBtnPress()
     {
         InfoStatic.gold += BigIncome;
+        AudioManagerScrpt.PlaySound("electro-win-sound", .2f);
     }
 
 }

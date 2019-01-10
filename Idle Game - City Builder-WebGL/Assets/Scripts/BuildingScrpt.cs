@@ -7,11 +7,18 @@ public class BuildingScrpt : MonoBehaviour {
     public InfoStatic InfoStatic;
     public GameObject House;
     public GameObject Market;
+    public GameObject Port;
 
-    private void Start()
+    void Start()
     {
-        House = GameObject.Find("House");
-        Market = GameObject.Find("Market");
+        //House = GameObject.Find("House");
+        //Market = GameObject.Find("Market");
+        //Port = GameObject.Find("Port");
+    }
+
+    void Update()
+    {
+        ShowBuildings();
     }
 
     public void ShowBuildings()
@@ -23,6 +30,10 @@ public class BuildingScrpt : MonoBehaviour {
         if (InfoStatic.marketbought == true)
         {
             Market.SetActive(true);
+        }
+        if (InfoStatic.portbought == true)
+        {
+            Port.SetActive(true);
         }
     }
 }
