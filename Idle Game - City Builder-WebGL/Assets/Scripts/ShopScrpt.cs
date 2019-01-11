@@ -207,7 +207,7 @@ public class ShopScrpt : MonoBehaviour {
             Debug.Log("Able To Buy");
             if (InfoStatic.portbought == false) // Checks if player has bought upgrade before
             {
-                Debug.Log("First Market");
+                Debug.Log("First Port");
                 InfoStatic.portbought = true;
             }
 

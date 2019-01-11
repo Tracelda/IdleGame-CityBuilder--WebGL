@@ -11,9 +11,9 @@ public class BuildingScrpt : MonoBehaviour {
 
     void Start()
     {
-        //House = GameObject.Find("House");
-        //Market = GameObject.Find("Market");
-        //Port = GameObject.Find("Port");
+        //House = GameObject.Find("House"); 1.3 
+        //Market = GameObject.Find("Market"); 2.4
+        //Port = GameObject.Find("Port"); 
     }
 
     void Update()

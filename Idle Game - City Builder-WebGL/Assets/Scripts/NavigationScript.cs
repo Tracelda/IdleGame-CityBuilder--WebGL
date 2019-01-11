@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 //using System.Runtime.Serialization.Formatters.Binary;
 //using System.IO;
 
-public enum Navigation { mainmenu, shop, game };
+public enum Navigation { mainmenu/*, shop*/, game };
 
 public class NavigationScript : MonoBehaviour {
 
@@ -38,14 +38,14 @@ public class NavigationScript : MonoBehaviour {
                 SceneManager.LoadScene(0);
                 break;
 
-            case Navigation.shop:
-                Debug.Log("Switch to shop");
-                SceneManager.LoadScene(1);
-                break;
+            //case Navigation.shop:
+            //    Debug.Log("Switch to shop");
+            //    SceneManager.LoadScene(1);
+            //    break;
 
             case Navigation.game:
                 Debug.Log("Switch to game");
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene(1);
                 break;
         }
     }
@@ -56,15 +56,15 @@ public class NavigationScript : MonoBehaviour {
         ChangeScene();
     }
 
-    public void SwitchToShop()
-    {
-        SceneNum = (Navigation)1; // Shop
-        ChangeScene();
-    }
+    //public void SwitchToShop()
+    //{
+    //    SceneNum = (Navigation)1; // Shop
+    //    ChangeScene();
+    //}
 
     public void SwitchToGame()
     {
-        SceneNum = (Navigation)2; // Game
+        SceneNum = (Navigation)1; // Game
         ChangeScene();
     }
 

@@ -67,8 +67,10 @@ MonoBehaviour:
   Sound_Prefab: {fileID: 1700246548728902, guid: e66b8f1462678a448ac01a95f0dbd25f,
     type: 2}
   Sound_Names:
-  - 
-  - 
+  - electro-win-sound
+  - hort-click-snap-perc
+  - OtherHurt
   Sound_Clips:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 080b8612a4b0db6439192e98aaea3e4a, type: 3}
+  - {fileID: 8300000, guid: 0a6d3a9cb1016074aa7b5d70161c0c72, type: 3}
+  - {fileID: 8300000, guid: 37b97f822e5749e419b4ae651a7ca646, type: 3}
